@@ -1,0 +1,4 @@
+#
+#
+#
+$dialog show @s $(str)

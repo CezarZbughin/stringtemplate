@@ -1,0 +1,5 @@
+//
+//
+//
+
+type CoreNull = {core:"null"}
