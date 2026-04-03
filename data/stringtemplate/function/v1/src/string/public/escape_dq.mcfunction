@@ -1,45 +1,38 @@
 #
-# Escapes the string for double quotes
+# Escapes self for doulbe quotes
 #
-# @in-out stringtemplate:string self
+# @changes stringtemplate:string self
 #
-#
-data modify storage stringtemplate:string.scope escape_dq.local set value {list:[]}
-data modify storage stringtemplate:string.scope escape_dq.local.list prepend \
-    from storage stringtemplate:string self
-
-#write list to sign
-execute in minecraft:overworld positioned 0 116 29999984 run \
-    data modify block ~ ~ ~ front_text.messages[0] set value \
-        {storage:"stringtemplate:string.scope",nbt:"escape_dq.local.list"}
-execute in minecraft:overworld positioned 0 116 29999984 run \
-    data modify storage stringtemplate:string.scope escape_dq.local.liststr set \
-        from block ~ ~ ~ front_text.messages[0]
-
-#get quotes type 
-data modify storage stringtemplate:string.scope escape_dq.local.quotes set \
-    string storage stringtemplate:string.scope escape_dq.local.liststr 1 2
-
-execute if data storage stringtemplate:string.scope escape_dq.local{quotes:"\""} run \
-    return run data modify storage stringtemplate:string self set \
-        string storage stringtemplate:string.scope escape_dq.local.liststr 2 -2
-
-#now force quote
-data modify storage stringtemplate:string.scope escape_dq.local.sq_ready set \
-    string storage stringtemplate:string.scope escape_dq.local.liststr 2 -2
-
-function stringtemplate:string/internal/escape_dq..force_dq with \
-    storage stringtemplate:string.scope escape_dq.local
-
-#again write list to sign
+data modify storage stringtemplate:string escape_dq.local set value { \
+    serialized:{core:"null"},\
+    quotes : {core:"null"} \
+}
 
 execute in minecraft:overworld positioned 0 116 29999984 run \
     data modify block ~ ~ ~ front_text.messages[0] set value \
-        {storage:"stringtemplate:string.scope",nbt:"escape_dq.local.list"}
+    {storage:"stringtemplate:string", nbt:"self", plain:true}
 
 execute in minecraft:overworld positioned 0 116 29999984 run \
-    data modify storage stringtemplate:string.scope escape_dq.local.liststr set \
-        from block ~ ~ ~ front_text.messages[0]
+    data modify storage stringtemplate:string escape_dq.local.serialized set \
+    from block ~ ~ ~ front_text.messages[0].extra
 
-data modify storage stringtemplate:string self set string \
-    storage stringtemplate:string.scope escape_dq.local.liststr 3 -2
+data modify storage stringtemplate:string escape_dq.local.quotes set \
+    from storage stringtemplate:string escape_dq.local.serialized[0]
+
+data modify storage stringtemplate:string self set \
+    from storage stringtemplate:string escape_dq.local.serialized[1]
+
+execute if data storage stringtemplate:string escape_dq.local{quotes:'"'} run \
+    return 1
+
+function stringtemplate:v1/src/string/internal/escape_dq..force_dq with storage stringtemplate:string
+
+execute in minecraft:overworld positioned 0 116 29999984 run \
+    data modify block ~ ~ ~ front_text.messages[0] set value \
+    {storage:"stringtemplate:string", nbt:"self", plain:true}
+
+execute in minecraft:overworld positioned 0 116 29999984 run \
+    data modify storage stringtemplate:string self set string \ 
+    block ~ ~ ~ front_text.messages[0].extra[1] 1
+
+return 0

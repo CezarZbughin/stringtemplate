@@ -6,6 +6,8 @@
 # @throws InvalidMacroException - If the template can not be lexed because it contains unexpected macro arguments, or if the file is empty
 # @throws linkerException - If the template tokanization failed, for example if the text is not correctly single-quote escaped
 #
+data modify storage stringtemplate:compile_exception static.linker.files set value []
+
 data modify storage stringtemplate:linker deep_lex.out set value {lex_record:{}, lex_list:[]}
 data modify storage stringtemplate:linker deep_lex.local set value {\
     queue : [{file:{core:"null"}}]\

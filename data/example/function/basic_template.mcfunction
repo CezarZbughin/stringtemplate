@@ -5,5 +5,5 @@ $$(import)example:a$(endimport)
 $$(import)example:b$(endimport)
 
 $$(template)\
-This is a template.\
+This is basic_template.\
 $(endtemplate)

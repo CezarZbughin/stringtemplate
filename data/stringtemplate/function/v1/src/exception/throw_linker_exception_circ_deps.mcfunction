@@ -3,20 +3,25 @@
 #
 data modify storage oop:x exception set value {\
     ooptype : {\
-        as_string: "LinkerException",\
         Exception:{},\
         CompilerException:{},\
         LinkerException:{},\
     },\
-    exception__message : ""\
+    title : "LinkerException", \
+    message : ""\
 }
-data modify storage stringtemplate:string.scope from_list.in.list set value ['Error in files ']
-data modify storage stringtemplate:string.scope to_string.in.data set \
-    from storage stringtemplate:compile_exception static.trace.files
-function stringtemplate:v1/src/string/public/to_string
-data modify storage stringtemplate:string.scope from_list.in.list append \
+data modify storage stringtemplate:string serialize.in set value "UNKNOWN"
+data modify storage stringtemplate:string serialize.in set \
+    from storage stringtemplate:compile_exception static.linker.files
+function stringtemplate:v1/src/string/public/serialize
+function stringtemplate:v1/src/string/public/escape_sq
+
+data modify storage stringtemplate:string concatenate_sq.in set value ['Linking error in files ', 'FILES', '. There is a circular dependency. Check the imports and break the circular path.']
+data modify storage stringtemplate:string concatenate_sq.in[1] set \
     from storage stringtemplate:string self
-data modify storage stringtemplate:string.scope from_list.in.list append \
-    value '. Linker failure, there is a circular dependency. Check the imports and break the circular path.'
-function stringtemplate:v1/src/string/public/from_list
-data modify storage oop:x exception.exception__message set from storage stringtemplate:string self
+
+function stringtemplate:v1/src/string/public/concatenate_sq
+
+data modify storage oop:x exception.message set from storage stringtemplate:string self
+
+return fail

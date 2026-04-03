@@ -1,4 +1,1 @@
-#
-#
-#
-$data modify storage stringtemplate:string.scope escape_dq.local.list set value ['\'$(sq_ready)']
+$data modify storage stringtemplate:string self set value '\'$(self)'

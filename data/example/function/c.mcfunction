@@ -1,7 +1,7 @@
 #
 #
 #
-$$(import)example:a$(endimport)
+#$$(import)example:a$(endimport)
 
 $$(template)\
 This is a template C.\

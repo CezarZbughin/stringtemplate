@@ -17,6 +17,7 @@ data modify storage stringtemplate:parser.scope value_provider.local set value {
 
 #TODO: remove white space
 
+
 function stringtemplate:parser/internal/value_provider..switch
 execute if data storage oop:x exception run return run function oop:catch_and_print
 

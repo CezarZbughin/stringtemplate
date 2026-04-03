@@ -10,7 +10,7 @@ function stringtemplate:syntax_tree/internal/evaluate..var_read with \
 execute if data storage stringtemplate:syntax_tree.scope evaluate.local.resolved.failed_to_resolve run \
     return run function stringtemplate:syntax_tree/internal/evaluate..var_error
 
-data modify storage stringtemplate:string.scope to_string.in.data set from \
+data modify storage stringtemplate:string to_string.in.data set from \
     storage stringtemplate:syntax_tree.scope evaluate.local.resolved
 function stringtemplate:string/public/to_string
 function stringtemplate:string/public/escape_sq

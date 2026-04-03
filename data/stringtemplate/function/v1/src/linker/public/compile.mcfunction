@@ -1,8 +1,7 @@
 #
+# @param stringtemplate:linker self
+# @output stringtemplate:linker compile.out.lex_list
 #
-#
-data modify storage stringtemplate:compile_exception static.trace.files set value []
-
 function stringtemplate:v1/core/try
 data modify storage stringtemplate:linker deep_lex.in.file set from \
     storage stringtemplate:linker self.file

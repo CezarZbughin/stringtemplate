@@ -2,6 +2,7 @@
 # @param stringtemplate:lexer constructor.in.file : string
 #
 data modify storage stringtemplate:lexer self set value {\
+    version: "v1", \
     file : {core:"null"},\
     macro_validate_macro : {\
         import : "execute if function stringtemplate:v1/src/lexer/internal/validate_macro..set_valid run say ",\
@@ -30,7 +31,7 @@ data modify storage stringtemplate:lexer self set value {\
     macro_tokenize : {\
         import : "execute if function stringtemplate:v1/core/functional/false run say ",\
         endimport: "",\
-        template :    "execute if function stringtemplate:v1/src/lexer/internal/tokenize..new_template run data modify storage stringtemplate:lexer tokenize.out.templates[-1] set value [{TEMPLATE:1b}, {TEXT:'",\
+        template :    "execute if function stringtemplate:v1/src/lexer/internal/tokenize..new_template run data modify storage stringtemplate:lexer tokenize.out.template set value [{TEMPLATE:1b}, {TEXT:'",\
         is :          "'},{IS:1b},{TEXT:'",\
         endtemplate : "'},{ENDTEMPLATE:1b}]",\
         x:            "'},{X:1b},{TEXT:'",\

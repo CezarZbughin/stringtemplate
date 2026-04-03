@@ -10,14 +10,15 @@ type ValueProvider = VarValueProvider | ConstValueProvider | FuncValueProvider;
 
 type VarValueProvider = {
     provider : "VAR";
-    name : string
-    path : string; 
+    id: string;
+    name : string; 
+    nbt : string; 
 }
 
 type ConstValueProvider = {
     provider : "CONST";
     value : unknown;
-    type : "number" | "string" | "object" | "list"
+    type : "string" | "list" | "object" | "number"
 }
 
 type FuncValueProvider = {
@@ -53,8 +54,8 @@ type Token =
     {ENDINVOKE: boolean};
 
 type Lex = {
-    file : string,
     vesrion : "v1",
+    file : string,
     dependinces : {file: string},
     template : Token[]
 }
@@ -62,7 +63,8 @@ type Lex = {
 // ABSTRACT SYNTAX TREE
 
 type Variable = {
-    name : string | {stringtemplate:"root"}
+    id : string,
+    name : string,
     value : unknown
 }
 
@@ -114,13 +116,13 @@ type InvokeNode = {
 //
 
 type Parser = {
+    version : string;
     file : string;
     dependencies : {file : string}[];
     tokens : Token[];
     scopes : Scope[];
     tree_stack : SyntaxTree[];
 }
-
 
 
 

@@ -17,7 +17,7 @@ function oop:try
         function stringtemplate:syntax_tree/internal/evaluate..each_node
 execute if data storage oop:x exception run return fail
 
-data modify storage stringtemplate:string.scope from_list.in.list set \
+data modify storage stringtemplate:string from_list.in.list set \
     from storage stringtemplate:syntax_tree.scope evaluate.local.accumulator
 function stringtemplate:string/public/from_list
 data modify storage stringtemplate:syntax_tree.scope evaluate.out.str set \

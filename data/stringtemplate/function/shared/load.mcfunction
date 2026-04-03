@@ -23,3 +23,5 @@ data modify storage stringtemplate:lib versions set value []
 function #stringtemplate:shared/register_version
 
 function #stringtemplate:shared/after_load
+
+function example:test

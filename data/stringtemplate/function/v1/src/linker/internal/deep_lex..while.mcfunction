@@ -4,6 +4,9 @@
         from storage stringtemplate:linker deep_lex.local.queue[0]
     data remove storage stringtemplate:linker deep_lex.local.queue[0]
 
+    data modify storage stringtemplate:compile_exception static.linker.files append \
+        from storage stringtemplate:linker deep_lex.local.queue_front.file
+
     #continue; if queue front already lexed
     execute if function stringtemplate:v1/src/linker/internal/deep_lex..already_lexed run \
         return run execute if data storage stringtemplate:linker deep_lex.local.queue[0] run \
@@ -14,9 +17,6 @@
     data modify storage stringtemplate:lexer constructor.in.file set from \
         storage stringtemplate:linker deep_lex.local.queue_front.file
     function stringtemplate:v1/src/lexer/public/constructor
-
-    data modify storage stringtemplate:compile_exception static.trace.files append \
-        from storage stringtemplate:linker deep_lex.local.queue_front.file
 
     function stringtemplate:v1/core/try
         function stringtemplate:v1/src/lexer/public/lex

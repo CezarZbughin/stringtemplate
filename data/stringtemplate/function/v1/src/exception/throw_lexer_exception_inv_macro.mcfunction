@@ -3,15 +3,21 @@
 #
 data modify storage oop:x exception set value {\
     ooptype : {\
-        as_string: "LexerException",\
         Exception:{},\
         CompilerException:{},\
         LexerException:{},\
     },\
-    exception__message : ""\
+    title : "LexerException", \
+    message : ""\
 }
-data modify storage stringtemplate:string.scope from_list.in.list set value ['Error in file "', 'FILE', '": Lexer failure, unexpected macro arguments (or file is empty). Check that that all macro keywords are supported.']
-data modify storage stringtemplate:string.scope from_list.in.list[1] set \
-    from storage stringtemplate:compile_exception static.trace.files[-1]
-function stringtemplate:v1/src/string/public/from_list
-data modify storage oop:x exception.exception__message set from storage stringtemplate:string self
+data modify storage stringtemplate:string concatenate_sq.in set value ['Lexing error in file "', 'FILE', '": Unexpected macro arguments (or file is empty). Check that all macro keywords are supported.']
+data modify storage stringtemplate:string self set value "UNKNOWN"
+data modify storage stringtemplate:string self set \
+    from storage stringtemplate:compile_exception static.lexer.file
+function stringtemplate:v1/src/string/public/escape_sq
+data modify storage stringtemplate:string concatenate_sq.in[1] set \
+    from storage stringtemplate:string self
+function stringtemplate:v1/src/string/public/concatenate_sq
+
+data modify storage oop:x exception.message set \
+    from storage stringtemplate:string self
