@@ -65,7 +65,7 @@ type Lex = {
 type Variable = {
     id : string,
     name : string,
-    value : unknown
+    value ?: unknown
 }
 
 type Scope = {
@@ -95,6 +95,7 @@ type IfNode = {
 
 type ForNode = {
     node : "FOR";
+    iterator : Variable;
     list_provider : ValueProvider;
     list_value : unknown[] | CoreNull;
     body : SyntaxTree;
@@ -123,6 +124,3 @@ type Parser = {
     scopes : Scope[];
     tree_stack : SyntaxTree[];
 }
-
-
-

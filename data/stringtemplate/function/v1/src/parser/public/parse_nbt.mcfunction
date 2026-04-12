@@ -20,6 +20,7 @@
 #
 # foo.bar -> path & value
 #
+data remove storage stringtemplate:compile_exception static.parser.nbt
 data modify storage stringtemplate:compile_exception static.parser.nbt set \
     from storage stringtemplate:parser parse_nbt.in.nbt
 
